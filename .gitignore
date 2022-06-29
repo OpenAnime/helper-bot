@@ -1,0 +1,4 @@
+target
+.idea
+.vscode
+src/main/java/me/openani/Config.java
