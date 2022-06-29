@@ -11,6 +11,7 @@
     <properties>
         <maven.compiler.source>18</maven.compiler.source>
         <maven.compiler.target>18</maven.compiler.target>
+        <maven.compiler.release>8</maven.compiler.release>
         <kotlin.version>1.7.0</kotlin.version>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
     </properties>
@@ -40,8 +41,6 @@
     </dependencies>
 
     <build>
-        <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
-        <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
         <plugins>
             <plugin>
                 <groupId>com.heroku.sdk</groupId>
@@ -49,8 +48,12 @@
                 <configuration>
                     <appName>aqueous-bastion-27400</appName>
                     <processTypes>
-                        <Worker>java $JAVA_OPTS -cp target/classes:target/dependency/* me.openani.App</Worker>
+                        <Worker>java -jar out/artifacts/helper_kotlin_jar/helper-kotlin.jar</Worker>
                     </processTypes>
+                    <includeTarget>false</includeTarget>
+                    <includes>
+                        <include>out/artifacts/helper_kotlin_jar/helper-kotlin.jar</include>
+                    </includes>
                 </configuration>
                 <version>3.0.3</version>
             </plugin>

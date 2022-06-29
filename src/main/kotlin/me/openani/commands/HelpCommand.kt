@@ -9,7 +9,7 @@ class HelpCommand: CommandListener {
         val commands = JSONObject()
 
         for (cmd in context.commandHandler.commands) {
-            commands.put(cmd.name, cmd.description)
+            commands.put(cmd.name, if (cmd.description.isNullOrEmpty()) "None" else cmd.description)
         }
 
         val result = "```json\n${commands.toString(4)}```"
