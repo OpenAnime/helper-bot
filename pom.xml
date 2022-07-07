@@ -38,25 +38,15 @@
             <artifactId>json</artifactId>
             <version>20220320</version>
         </dependency>
+        <dependency>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+            <version>3.0.6</version>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>com.heroku.sdk</groupId>
-                <artifactId>heroku-maven-plugin</artifactId>
-                <configuration>
-                    <appName>aqueous-bastion-27400</appName>
-                    <processTypes>
-                        <Worker>java -jar out/artifacts/helper_kotlin_jar/helper-kotlin.jar</Worker>
-                    </processTypes>
-                    <includeTarget>false</includeTarget>
-                    <includes>
-                        <include>out/artifacts/helper_kotlin_jar/helper-kotlin.jar</include>
-                    </includes>
-                </configuration>
-                <version>3.0.3</version>
-            </plugin>
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>

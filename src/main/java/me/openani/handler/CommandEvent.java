@@ -1,6 +1,8 @@
 package me.openani.handler;
 
-import java.security.Permission;
+import net.dv8tion.jda.api.Permission;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.annotation.Nonnull;
@@ -23,7 +25,7 @@ public class CommandEvent extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
-        if (event.getGuild() == null) return;
+        if (!event.isFromGuild()) return;
 
         String[] args = event.getMessage().getContentRaw().split("\\s+");
         String commandPrefix = commandHandlerBuilder.prefix;
@@ -34,12 +36,16 @@ public class CommandEvent extends ListenerAdapter {
 
         commandHandlerBuilder.commands.forEach(cmd -> {
             if (cmd.getName().equals(command) || cmd.getAlias().equals(command)) {
-                executeCommand(cmd, event.getMember(), event.getTextChannel(), event.getMessage(), args);
+                try {
+                    executeCommand(cmd, event.getMember(), event.getTextChannel(), event.getMessage(), args);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
 
-    private void executeCommand(Command command, Member member, TextChannel channel, Message message, String[] args) {
+    private void executeCommand(Command command, Member member, TextChannel channel, Message message, String[] args) throws SQLException {
         if (message.getAuthor().isBot()) return;
 
         ArrayList<Permission> perms = command.getPermissions();
@@ -47,6 +53,10 @@ public class CommandEvent extends ListenerAdapter {
 
         CommandContext context = new CommandContext(commandHandlerBuilder, member, channel, message, Arrays.copyOfRange(args, 1, args.length));
 
-        command.getListener().onCommand(context);
+        try {
+            command.getListener().onCommand(context);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

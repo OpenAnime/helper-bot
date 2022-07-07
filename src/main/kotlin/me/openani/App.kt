@@ -7,6 +7,7 @@ open class App {
         @JvmStatic fun main(args: Array<String>) {
             try {
                 Bot(TOKEN)
+                syncTables()
             } catch (e: LoginException) {
                 e.printStackTrace()
             }

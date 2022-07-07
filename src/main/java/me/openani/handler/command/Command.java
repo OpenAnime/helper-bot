@@ -1,6 +1,6 @@
 package me.openani.handler.command;
 
-import java.security.Permission;
+import net.dv8tion.jda.api.Permission;
 import java.util.ArrayList;
 import me.openani.handler.listener.CommandListener;
 

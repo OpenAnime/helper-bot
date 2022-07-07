@@ -5,7 +5,7 @@ import me.openani.handler.command.CommandContext
 import me.openani.handler.listener.CommandListener
 
 class HelpCommand: CommandListener {
-    public override fun onCommand(context: CommandContext) {
+    override fun onCommand(context: CommandContext) {
         val commands = JSONObject()
 
         for (cmd in context.commandHandler.commands) {

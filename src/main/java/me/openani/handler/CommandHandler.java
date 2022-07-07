@@ -10,8 +10,7 @@ public class CommandHandler {
     CommandHandler(CommandHandlerBuilder commandHandlerBuilder) {
         this.commandHandlerBuilder = commandHandlerBuilder;
 
-        commandHandlerBuilder.jdaObject
-            .addEventListener(new CommandEvent(commandHandlerBuilder));
+        commandHandlerBuilder.setCommandEventListener(new CommandEvent(commandHandlerBuilder));
     }
 
     public void addCommand(Command command) {

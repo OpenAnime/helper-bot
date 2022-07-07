@@ -3,12 +3,13 @@ package me.openani.handler;
 import java.util.ArrayList;
 import me.openani.handler.command.Command;
 import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 // https://github.com/mnmnr/JDA-Command-Handler
 
 public class CommandHandlerBuilder {
     protected ArrayList<Command> commands = new ArrayList<>();
-    JDA jdaObject;
+    private final JDA jdaObject;
     String prefix;
 
     public CommandHandlerBuilder(JDA jdaObject) {
@@ -29,10 +30,8 @@ public class CommandHandlerBuilder {
         return commands;
     }
 
-    public CommandHandlerBuilder addCommand(Command command) {
+    public void addCommand(Command command) {
         commands.add(command);
-
-        return this;
     }
 
     public CommandHandlerBuilder addCommands(Command... commands) {
@@ -41,6 +40,10 @@ public class CommandHandlerBuilder {
         }
 
         return this;
+    }
+
+    public void setCommandEventListener(ListenerAdapter listenerAdapter) {
+        jdaObject.addEventListener(listenerAdapter);
     }
 
     public CommandHandler build() {
